@@ -1,0 +1,9 @@
+langchain
+langchain-community
+langchain_ollama
+faiss-cpu
+pypdf
+flask
+werkzeug
+pydantic
+flask-cors
