@@ -94,7 +94,3 @@ curl -X POST -H "Content-Type: application/json" -d '{"query":"What are the OWAS
 ```bash
 curl http://localhost:5000/health
 ```
-
-
-python3.10 -m venv faisenv1
-source faisenv1/bin/activate
