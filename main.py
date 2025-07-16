@@ -220,32 +220,16 @@ def main():
     
     query = input("\nQuery: ")
     while query.lower() != "exit":
-        results = search_documents(query)
-        formatted_output = format_search_results(results)
-        
-        # Print formatted results
-        print("\nSearch Results")
-        print("==============")
-        
-        if formatted_output["status"] == "no_results":
-            print(formatted_output["message"])
-        else:
-            # Print summary
-            print("\nSummary:")
-            print(f"Total Results: {formatted_output['summary']['total_results']}")
-            print(f"Average Confidence: {formatted_output['summary']['average_confidence']:.4f}")
-            print(f"Sources: {', '.join(formatted_output['summary']['sources'])}")
-            
-            # Print individual results
-            print("\nDetailed Results:")
-            for result in formatted_output["results"]:
-                print(f"\n[Result {result['result_id']}]")
-                print(f"Source: {result['metadata']['source']}")
-                print(f"Page: {result['metadata']['page']}")
-                print(f"Confidence: {result['metadata']['confidence_score']}")
-                print("-" * 80)
-                print(result['content'])
-                print("-" * 80)
+            if not query:
+                print("Please enter a valid query.")
+                continue
+            if query.lower() == "exit":
+                break
+            qa_result = query_pdf(query)
+            print("\nQA Response")
+            print("===========")
+            print(f"Answer: {qa_result['answer']}")
+            print(f"Sources: {', '.join(qa_result['sources'])}")
         
         query = input("\nQuery (type 'exit' to quit): ")
 
