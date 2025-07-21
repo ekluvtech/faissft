@@ -375,6 +375,6 @@ if __name__ == '__main__':
     # Ensure upload directory exists
     os.makedirs(UPLOAD_FOLDER, exist_ok=True)
     init_llm() 
-    load_index()
+    #load_index()
     # Run the Flask app
     app.run(debug=True, host='0.0.0.0', port=5001) 
