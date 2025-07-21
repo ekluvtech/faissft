@@ -2,7 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 import os
-from main import init_llm, load_index, format_search_results, load_index, search_documents, SYSTEM_PROMPT, create_embeddings
+from main import init_llm, load_index, load_index,  query_pdf, SYSTEM_PROMPT, create_embeddings
 import logging
 import numpy as np
 import json
@@ -296,39 +296,19 @@ def query_documents():
         # Initialize LLM if not already initialized
        # init_llm()
         # Search documents
-        results = search_documents(query)
+        # results = search_documents(query)
         #results = search_documents(query)
-        formatted_output = format_search_results(results)
+        #formatted_output = format_search_results(results)
+        results = query_pdf(query)
         if not results:
             return jsonify({
                 'message': 'No relevant documents found',
                 'results': []
             }), 200
         
-        # # Format results with structured response
-        # formatted_response = {
-        #     "query_understanding": {
-        #         "document_type": determine_document_type(results),
-        #         "context": extract_context(results),
-        #         "search_parameters": {
-        #             "relevance_threshold": 0.8,
-        #             "context_window": "paragraph"
-        #         }
-        #     },
-        #     "response": {
-        #         "main_points": extract_main_points(results),
-        #         "supporting_details": extract_supporting_details(results),
-        #         "references": extract_references(results),
-        #         "confidence_score": calculate_average_confidence(results)
-        #     },
-        #     "metadata": {
-        #         "source_documents": [r['metadata'].get('source') for r in results if 'source' in r['metadata']],
-        #         "section_references": [r['metadata'].get('page') for r in results if 'page' in r['metadata']],
-        #         "last_updated": datetime.now().isoformat()
-        #     }
-        # }
         
-        return jsonify(formatted_output), 200
+        
+        return jsonify(results), 200
     
     except Exception as e:
         logging.error(f"Error during search: {str(e)}")
